@@ -10,3 +10,9 @@ git-remote-add-codecommit:
 
 git-remote-list:
 	@git remote -v
+
+git-remote-codecommit:
+	@brew bundle
+
+git-push-origin: git-remote-add-codecommit
+	@git push --set-upstream origin main

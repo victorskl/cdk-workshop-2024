@@ -1,0 +1,62 @@
+{
+  "entries": {
+    "brew": {
+      "git-remote-codecommit": {
+        "version": "1.17_2",
+        "bottle": {
+          "rebuild": 2,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:1d5c336a96fe1298c4d611911da80992e3eac31b557a617acb8e66b8b88e4efb",
+              "sha256": "1d5c336a96fe1298c4d611911da80992e3eac31b557a617acb8e66b8b88e4efb"
+            },
+            "arm64_ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:c99e7620a096d70ec805849d5422d6b9548d8ad0c92419c926f898d3056e0baf",
+              "sha256": "c99e7620a096d70ec805849d5422d6b9548d8ad0c92419c926f898d3056e0baf"
+            },
+            "arm64_monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:c51728e7b342f52f887425f139bb6eab3665b0c01b1ae91a4099e10010d469dc",
+              "sha256": "c51728e7b342f52f887425f139bb6eab3665b0c01b1ae91a4099e10010d469dc"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:5469b821f4399b31e7c6387e43ffc321fc96f6b0671d025be83c34fa9ffc5e27",
+              "sha256": "5469b821f4399b31e7c6387e43ffc321fc96f6b0671d025be83c34fa9ffc5e27"
+            },
+            "ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:2f55bc4e410cd2acb0ce8916b18f15a4e4f794768d22e80cbcfa97544271cd3f",
+              "sha256": "2f55bc4e410cd2acb0ce8916b18f15a4e4f794768d22e80cbcfa97544271cd3f"
+            },
+            "monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:35c1a9c3b928aaa28c93f69bac223d4e034c93735122a03ae098622ee030f2fc",
+              "sha256": "35c1a9c3b928aaa28c93f69bac223d4e034c93735122a03ae098622ee030f2fc"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/git-remote-codecommit/blobs/sha256:d3b4a7162044926b1f1804c6c0f99fc3c8523d82c0642d6d00b17d850bbbb70a",
+              "sha256": "d3b4a7162044926b1f1804c6c0f99fc3c8523d82c0642d6d00b17d850bbbb70a"
+            }
+          }
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "sonoma": {
+        "HOMEBREW_VERSION": "4.2.21",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "Homebrew/homebrew-core": "api",
+        "CLT": "15.3.0.0.1.1708646388",
+        "Xcode": "15.3",
+        "macOS": "14.4.1"
+      }
+    }
+  }
+}
