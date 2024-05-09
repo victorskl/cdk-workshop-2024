@@ -21,5 +21,8 @@ cdk-synth-template:
 	@mkdir -p .local/
 	@npx cdk synth pipeline-stack > .local/template.yml && code .local/template.yml
 
-cdk-deploy:
+cdk-deploy-pipeline:
 	@npx cdk deploy pipeline-stack
+
+cdk-deploy-ecr:
+	@npx cdk deploy ecr-stack

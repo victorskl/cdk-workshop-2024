@@ -11,7 +11,7 @@ from aws_cdk import (
 
 class PipelineCdkStack(Stack):
 
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ecr_repository, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'CICD_Workshop'
