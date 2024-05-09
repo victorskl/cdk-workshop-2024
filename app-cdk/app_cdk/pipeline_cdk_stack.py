@@ -35,9 +35,28 @@ class PipelineCdkStack(Stack):
         # step 2
         code_quality_build = codebuild.PipelineProject(
             self, 'CodeBuild',
-            build_spec=codebuild.BuildSpec.from_object({
-                'version': '0.2'
-            }),
+
+            # externalise buildspec to buildspec_test.yml
+
+            # Create the build specification for the code quality stage
+            #
+            # A buildspec is a collection of build commands and related settings, in YAML format, that CodeBuild uses
+            # to run a build. You can include a buildspec as part of the source code, or you can define a buildspec
+            # when you create a build project.
+            #
+            # By default, the Code Quality stage we defined using CodeBuild will look for a buildspec.yml file in
+            # the current directory.
+            #
+            # However, in this workshop we will be using AWS CodeBuild in multiple stages so will require multiple
+            # buildspecs to define each stage. The good news is that we can see from the CDK reference for CodeBuild
+            # that there is a method fromSourceFilename that we can use if we want to use a file different from
+            # buildspec.yml.
+
+            # build_spec=codebuild.BuildSpec.from_object({
+            #     'version': '0.2'
+            # }),
+            build_spec=codebuild.BuildSpec.from_source_filename('./buildspec_test.yml'),
+
             environment=codebuild.BuildEnvironment(
                 build_image=codebuild.LinuxBuildImage.STANDARD_5_0,
                 privileged=True,
