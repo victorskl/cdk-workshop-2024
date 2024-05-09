@@ -29,3 +29,6 @@ cdk-deploy-ecr:
 
 cdk-deploy-test:
 	@npx cdk deploy test-app-stack
+
+cdk-deploy-prod:
+	@npx cdk deploy prod-app-stack
