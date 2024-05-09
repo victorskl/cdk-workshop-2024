@@ -16,3 +16,7 @@ git-remote-codecommit:
 
 git-push-origin: git-remote-add-codecommit
 	@git push --set-upstream origin main
+
+# See https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html
+dkr-image-sign:
+	@aws signer put-signing-profile --profile-name ecr_signing_profile --platform-id Notation-OCI-SHA384-ECDSA --signature-validity-period 'value=12, type=MONTHS'

@@ -9,6 +9,7 @@ from aws_cdk import (
     aws_codebuild as codebuild,
     aws_codepipeline_actions as codepipeline_actions,
     aws_iam as iam,
+    aws_ssm as ssm,
 )
 
 
@@ -153,3 +154,43 @@ class PipelineCdkStack(Stack):
             stage_name='Docker-Push-ECR',
             actions=[docker_build_action]
         )
+
+        # DOCKER IMAGE SIGNER - SKIPPING THIS PART
+        # See https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html
+
+        ssmParameter = ssm.StringParameter(
+            self, 'SignerProfileARN',
+            parameter_name='signer-profile-arn',
+            string_value='{{Signing Profile ARN}}',
+        )
+
+        docker_build_project.add_to_role_policy(iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=[
+                'ssm:GetParametersByPath',
+                'ssm:GetParameters',
+            ],
+            resources=['*'],
+        ))
+
+        # THE FOLLOWING ONLY AVAILABLE AS TYPESCRIPT CODE IN AWS TUTORIAL
+
+        # Updating the CodeBuild service role's permissions to allow access to AWS Signer
+
+        # We will be signing the container images via CodeBuild, hence we need to update the CodeBuild service
+        # role so that during the builds CodeBuild can access AWS Signer and sign the container images.
+
+        #     const signerPolicy = new iam.PolicyStatement({
+        #       effect: iam.Effect.ALLOW,
+        #       resources: ['*'],
+        #       actions: [
+        #         'signer:PutSigningProfile',
+        #         'signer:SignPayload',
+        #         'signer:GetRevocationStatus',
+        #       ],
+        #     });
+        #
+        #     dockerBuild.addToRolePolicy(signerPolicy);
+
+        # THEN, OVERWRITE buildspec_docker.yml CONTENT FROM buildspec_docker.signer.yml
+        # THEN, PUSH `cdk deploy pipeline-stack`
