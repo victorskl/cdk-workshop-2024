@@ -26,3 +26,6 @@ cdk-deploy-pipeline:
 
 cdk-deploy-ecr:
 	@npx cdk deploy ecr-stack
+
+cdk-deploy-test:
+	@npx cdk deploy test-app-stack
