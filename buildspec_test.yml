@@ -14,4 +14,12 @@ phases:
   build:
     commands:
       - echo run tests...
+      - python -m pytest --junitxml=pytest_reports/junit.xml
       - python -m pytest
+
+  reports:
+    pytest_reports:
+      files:
+        - junit.xml
+      base-directory: ./my-app/pytest_reports
+      file-format: JUNITXML
