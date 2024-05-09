@@ -34,7 +34,7 @@ pipeline_stack = PipelineCdkStack(
     'pipeline-stack',
     ecr_repository=ecr_stack.ecr_data,
     test_app_fargate=test_app_stack.ecs_service_data,
-    prod_app_fargate=prod_app_stack.ecs_service_data,
+    # prod_app_fargate=prod_app_stack.ecs_service_data,  # commented for blue-green deployment
 )
 
 app.synth()

@@ -14,8 +14,12 @@ from aws_cdk import (
 
 
 class PipelineCdkStack(Stack):
+    """
+    For blue-green deployment, remove `prod_app_fargate` from the constructor.
+    Update and deploy the pipeline stack (remove the production stage). Look around line 240 down under.
+    """
 
-    def __init__(self, scope: Construct, id: str, ecr_repository, test_app_fargate, prod_app_fargate, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ecr_repository, test_app_fargate, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'CICD_Workshop'
@@ -218,18 +222,23 @@ class PipelineCdkStack(Stack):
         # and pause at `Deploy-Production` stage and waiting for manual approval (gated-delivery-production2.png)
         # See complete pipeline transitions at `assets/gated-delivery-production/*.png`
 
-        pipeline.add_stage(
-            stage_name='Deploy-Production',
-            actions=[
-                codepipeline_actions.ManualApprovalAction(
-                    action_name='Approve-Prod-Deploy',
-                    run_order=1,
-                ),
-                codepipeline_actions.EcsDeployAction(
-                    action_name='Deploy-Production',
-                    service=prod_app_fargate.service,
-                    input=docker_build_output,
-                    run_order=2,
-                )
-            ]
-        )
+        # pipeline.add_stage(
+        #     stage_name='Deploy-Production',
+        #     actions=[
+        #         codepipeline_actions.ManualApprovalAction(
+        #             action_name='Approve-Prod-Deploy',
+        #             run_order=1,
+        #         ),
+        #         codepipeline_actions.EcsDeployAction(
+        #             action_name='Deploy-Production',
+        #             service=prod_app_fargate.service,
+        #             input=docker_build_output,
+        #             run_order=2,
+        #         )
+        #     ]
+        # )
+
+        # For blue-green deployment, Update and deploy the pipeline stack (remove the production stage^^).
+        # Then, need to push `pipeline-stack` once to remove the stage into pipeline, after removing the above stage^^
+        #   cd app-cdk
+        #   npx cdk deploy pipeline-stack
