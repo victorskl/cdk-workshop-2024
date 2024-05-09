@@ -15,7 +15,7 @@ from aws_cdk import (
 
 class PipelineCdkStack(Stack):
 
-    def __init__(self, scope: Construct, id: str, ecr_repository, test_app_fargate, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ecr_repository, test_app_fargate, prod_app_fargate, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'CICD_Workshop'
@@ -203,6 +203,33 @@ class PipelineCdkStack(Stack):
                     action_name='Deploy-Fargate-Test',
                     service=test_app_fargate.service,
                     input=docker_build_output
+                )
+            ]
+        )
+
+        # Gated Delivery to Production Environment
+        #
+        # (NOTE)
+        # Need to push `pipeline-stack` once to create the stage into pipeline, after adding the following stage
+        #   cd app-cdk
+        #   npx cdk deploy pipeline-stack
+        #
+        # Afterward, making any commit to repo would go through the pipeline (gated-delivery-production1.png)
+        # and pause at `Deploy-Production` stage and waiting for manual approval (gated-delivery-production2.png)
+        # See complete pipeline transitions at `assets/gated-delivery-production/*.png`
+
+        pipeline.add_stage(
+            stage_name='Deploy-Production',
+            actions=[
+                codepipeline_actions.ManualApprovalAction(
+                    action_name='Approve-Prod-Deploy',
+                    run_order=1,
+                ),
+                codepipeline_actions.EcsDeployAction(
+                    action_name='Deploy-Production',
+                    service=prod_app_fargate.service,
+                    input=docker_build_output,
+                    run_order=2,
                 )
             ]
         )
