@@ -15,7 +15,7 @@ from aws_cdk import (
 
 class PipelineCdkStack(Stack):
 
-    def __init__(self, scope: Construct, id: str, ecr_repository, **kwargs) -> None:
+    def __init__(self, scope: Construct, id: str, ecr_repository, test_app_fargate, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Creates a CodeCommit repository called 'CICD_Workshop'
@@ -161,7 +161,7 @@ class PipelineCdkStack(Stack):
         ssmParameter = ssm.StringParameter(
             self, 'SignerProfileARN',
             parameter_name='signer-profile-arn',
-            string_value='{{Signing Profile ARN}}',
+            string_value='Signing Profile ARN',
         )
 
         docker_build_project.add_to_role_policy(iam.PolicyStatement(
@@ -194,3 +194,15 @@ class PipelineCdkStack(Stack):
 
         # THEN, OVERWRITE buildspec_docker.yml CONTENT FROM buildspec_docker.signer.yml
         # THEN, PUSH `cdk deploy pipeline-stack`
+
+        # Continuous Delivery to Test Environment
+        pipeline.add_stage(
+            stage_name='Deploy-Test',
+            actions=[
+                codepipeline_actions.EcsDeployAction(
+                    action_name='Deploy-Fargate-Test',
+                    service=test_app_fargate.service,
+                    input=docker_build_output
+                )
+            ]
+        )
