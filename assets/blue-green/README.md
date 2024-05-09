@@ -34,3 +34,23 @@ Before you do that, you will need to:
 * Update and deploy the prod app stack (add new Fargate service that supports CodeDeploy controller).
 * Update and deploy the pipeline stack (add the production stage that deploys to the production application stack created in the above step).
 * Add `appspec` and `taskdef` files.
+
+## Add `taskdef.json` and `appspec.yaml` files
+
+The artifacts `appspec.yaml` and `taskdef.json` are used by the CodeDeploy.
+
+For Amazon ECS compute platform applications, the AppSpec file is used by CodeDeploy to determine your Amazon ECS task definition file. It also helps to determine the container and port in your replacement task set where your Application Load Balancer or Network Load Balancer reroutes traffic during a deployment. This is specified with the LoadBalancerInfo instruction in the AppSpec file.
+
+### AppSpec
+
+* In the AWS console, navigate to Elastic Container Service > Task definitions.
+* Select the Task Definition of the prod cluster > select latest revision > copy the ARN of your Task Definition's revision (from the Overview section).
+* Replace the value of `<Task_Definition>` in appspec with the ARN of your Task Definition.
+
+### taskdef
+
+* Copy the following (`taskdef.template.json`) to define our taskdef to deploy our container. Replace the values for `executionRoleArn`, `image`, and `family` with resources from your environment:
+* In the AWS console, navigate to Elastic Container Service > Task definitions > select the Task Definition of the prod cluster > select latest revision.
+* For executionRoleArn, select the Task execution role, which will take you to the IAM console. Copy the ARN and replace the executionRoleArn below.
+* For image, scroll down to the Containers section, and copy the details below the Image column. Replace the image below.
+* For family, switch to the JSON tab, and copy the family value from the task_definition.json file. Replace the family details below.

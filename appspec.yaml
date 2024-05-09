@@ -1,0 +1,14 @@
+# In the AWS console, navigate to Elastic Container Service > Task definitions.
+# Select the Task Definition of the prod cluster > select latest revision > copy the ARN of your Task Definition's revision (from the Overview section).
+# Replace the value of <Task_Definition> in appspec with the ARN of your Task Definition.
+
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+#        TaskDefinition: "<TASK_DEFINITION>"
+        TaskDefinition: "arn:aws:ecs:us-east-1:169828692304:task-definition/prodappstackserviceTaskDef3574354D:3"
+        LoadBalancerInfo:
+          ContainerName: "my-app"
+          ContainerPort: 8081
