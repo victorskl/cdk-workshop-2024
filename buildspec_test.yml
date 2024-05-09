@@ -17,9 +17,9 @@ phases:
       - python -m pytest --junitxml=pytest_reports/junit.xml
       - python -m pytest
 
-  reports:
-    pytest_reports:
-      files:
-        - junit.xml
-      base-directory: ./my-app/pytest_reports
-      file-format: JUNITXML
+reports:
+  pytest_reports:
+    files:
+      - junit.xml
+    base-directory: ./my-app/pytest_reports
+    file-format: JUNITXML
