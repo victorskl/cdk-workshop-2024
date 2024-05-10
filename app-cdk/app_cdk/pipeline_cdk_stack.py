@@ -271,9 +271,20 @@ class PipelineCdkStack(Stack):
                 codepipeline_actions.CodeDeployEcsDeployAction(
                     action_name='ABlueGreen-deployECS',
                     deployment_group=prod_ecs_deployment_group,
-                    app_spec_template_input=source_output,
-                    task_definition_template_input=source_output,
+                    # app_spec_template_input=source_output,
+                    # task_definition_template_input=source_output,
+                    app_spec_template_file=source_output.at_path('appspec.yaml'),
+                    task_definition_template_file=source_output.at_path('taskdef.json'),
                     run_order=2
                 )
             ]
         )
+
+        """
+        NOTE:
+        The `source_output` artifact (git clone checkout) could be big for CodeDeploy input, 3MB limit. It hits:
+        
+            Exception while trying to read the task definition artifact file from: Artifact_Source_CodeCommit.
+        
+        See assets/artifact-size-limit-issue/README.md
+        """
