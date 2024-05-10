@@ -21,7 +21,13 @@ phases:
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"my-app","imageUri":"%s"}]' $IMAGE_REPO_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
+#      - printf '[{"name":"my-app","imageUri":"%s"}]' $IMAGE_REPO_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
+      - printf '{"ImageURI":"%s"}' $IMAGE_REPO_URI:$IMAGE_TAG > $CODEBUILD_SRC_DIR/imageDetail.json
 
 artifacts:
-    files: imagedefinitions.json
+#    files: imagedefinitions.json
+    files: imageDetail.json
+
+# Read more about `imagedefinitions.json` and `imageDetail.json`
+# Image definitions file reference
+# https://docs.aws.amazon.com/codepipeline/latest/userguide/file-reference.html
