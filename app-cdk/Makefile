@@ -37,3 +37,10 @@ cdk-deploy-test:
 
 cdk-deploy-prod:
 	@npx cdk deploy prod-app-stack
+
+cdk-destroy:
+	@npx cdk destroy --all
+
+cdk-destroy-all: cdk-destroy
+
+cdk-nuke: cdk-deploy
