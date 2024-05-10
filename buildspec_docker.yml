@@ -28,6 +28,8 @@ artifacts:
   files:
     - imagedefinitions.json
     - imageDetail.json
+    - appspec.yaml
+    - taskdef.json
 
 # Read more about `imagedefinitions.json` and `imageDetail.json`
 # Image definitions file reference

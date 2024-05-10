@@ -273,8 +273,8 @@ class PipelineCdkStack(Stack):
                     deployment_group=prod_ecs_deployment_group,
                     # app_spec_template_input=source_output,
                     # task_definition_template_input=source_output,
-                    app_spec_template_file=source_output.at_path('appspec.yaml'),
-                    task_definition_template_file=source_output.at_path('taskdef.json'),
+                    app_spec_template_file=docker_build_output.at_path('appspec.yaml'),
+                    task_definition_template_file=docker_build_output.at_path('taskdef.json'),
                     run_order=2
                 )
             ]

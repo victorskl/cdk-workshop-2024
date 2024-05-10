@@ -35,6 +35,18 @@ aws s3 ls --human-readable s3://pipeline-stack-cicdpipelineartifactsbucketf7b9ae
 
 See screen-mo for completeness - [codepipeline-source-artifact-size.png](codepipeline-source-artifact-size.png)
 
+## AWS
+
+Quotas in AWS CodePipeline
+
+https://docs.aws.amazon.com/codepipeline/latest/userguide/limits.html
+
+> Maximum size of artifacts in a source stage
+> 
+> * Exception: If you are using AWS Elastic Beanstalk to deploy applications, the maximum artifact size is always 512 MB.
+> * Exception: If you are using AWS CloudFormation to deploy applications, the maximum artifact size is always 256 MB.
+> * Exception: If you are using the **CodeDeployToECS** action to deploy applications, the maximum artifact size is always 3 MB.
+
 ## Fix
 
 This leads to [`CodeDeployToECS`](https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-ECSbluegreen.html) action of CodePipeline Blue/Green deployment. In CDK v2 API, the construct class is called [`CodeDeployEcsDeployAction`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_codepipeline_actions.CodeDeployEcsDeployAction.html).
@@ -43,6 +55,10 @@ I am with Python. So.
 
 - https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_codepipeline_actions/CodeDeployEcsDeployAction.html
 - https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_codepipeline/ArtifactPath.html#aws_cdk.aws_codepipeline.ArtifactPath
+
+However. Source artifact location (git clone) is still >3MB. We switch to leverage Docker build output artifact location.
+
+See [codepipeline-docker-artifact-size1.png](codepipeline-docker-artifact-size1.png)
 
 TL;DR
 
@@ -59,8 +75,8 @@ TL;DR
                     deployment_group=prod_ecs_deployment_group,
                     # app_spec_template_input=source_output,
                     # task_definition_template_input=source_output,
-                    app_spec_template_file=source_output.at_path('appspec.yaml'),
-                    task_definition_template_file=source_output.at_path('taskdef.json'),
+                    app_spec_template_file=docker_build_output.at_path('appspec.yaml'),
+                    task_definition_template_file=docker_build_output.at_path('taskdef.json'),
                     run_order=2
                 )
             ]

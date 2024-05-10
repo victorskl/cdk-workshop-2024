@@ -41,6 +41,11 @@ The artifacts `appspec.yaml` and `taskdef.json` are used by the CodeDeploy.
 
 For Amazon ECS compute platform applications, the AppSpec file is used by CodeDeploy to determine your Amazon ECS task definition file. It also helps to determine the container and port in your replacement task set where your Application Load Balancer or Network Load Balancer reroutes traffic during a deployment. This is specified with the LoadBalancerInfo instruction in the AppSpec file.
 
+REF:
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-ecs-ecr-codedeploy.html
+* https://docs.aws.amazon.com/codepipeline/latest/userguide/file-reference.html
+* See also [artifact-size-limit-issue](../artifact-size-limit-issue)
+
 ### AppSpec
 
 * In the AWS console, navigate to Elastic Container Service > Task definitions.
