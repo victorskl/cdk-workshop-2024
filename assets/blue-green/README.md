@@ -59,3 +59,8 @@ REF:
 * For executionRoleArn, select the Task execution role, which will take you to the IAM console. Copy the ARN and replace the executionRoleArn below.
 * For image, scroll down to the Containers section, and copy the details below the Image column. Replace the image below.
 * For family, switch to the JSON tab, and copy the family value from the task_definition.json file. Replace the family details below.
+
+---
+
+![blue-green-deployment1.png](blue-green-deployment1.png)
+![blue-green-deployment2.png](blue-green-deployment2.png)

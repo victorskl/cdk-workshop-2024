@@ -58,7 +58,18 @@ I am with Python. So.
 
 However. Source artifact location (git clone) is still >3MB. We switch to leverage Docker build output artifact location.
 
-See [codepipeline-docker-artifact-size1.png](codepipeline-docker-artifact-size1.png)
+(Before)
+
+[codepipeline-docker-artifact-size1.png](codepipeline-docker-artifact-size1.png)
+
+(After)
+
+[codepipeline-docker-artifact-size2.png](codepipeline-docker-artifact-size2.png)
+
+```
+aws s3 ls --human-readable s3://pipeline-stack-cicdpipelineartifactsbucketf7b9aed3-hkrwu20hww4h/pipeline-stack-CICDP/Artifact_D/QwtLDPX
+2024-05-10 19:55:24    1.5 KiB QwtLDPX
+```
 
 TL;DR
 
@@ -82,3 +93,19 @@ TL;DR
             ]
         )
 ```
+
+---
+
+Finally, Blue/Green deployment success.!
+
+(CodePipeline)
+
+* [codepipeline-console-success1.png](codepipeline-console-success1.png)
+* [codepipeline-console-success2.png](codepipeline-console-success2.png)
+* [codepipeline-console-success3.png](codepipeline-console-success3.png)
+* [codepipeline-console-success4.png](codepipeline-console-success4.png)
+
+(CodeDeploy)
+
+![blue-green-deployment1.png](../blue-green/blue-green-deployment1.png)
+![blue-green-deployment2.png](../blue-green/blue-green-deployment2.png)
