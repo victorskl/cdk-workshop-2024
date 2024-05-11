@@ -13,6 +13,7 @@
   * [gated-delivery-deployment](assets/gated-delivery-production) (or `baseline`)
   * [artifact-size-limit-issue](assets/artifact-size-limit-issue)
   * [blue-green-deployment](assets/blue-green)
+  * [observability](assets/observability)
 
 (TL;DR)
 ```

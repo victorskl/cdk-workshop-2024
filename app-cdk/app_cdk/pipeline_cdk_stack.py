@@ -13,6 +13,8 @@ from aws_cdk import (
     aws_codedeploy as codedeploy,
 )
 
+from app_cdk.cloudwatch_dashboard import CloudwatchDashboardConstruct
+
 
 class PipelineCdkStack(Stack):
 
@@ -288,3 +290,7 @@ class PipelineCdkStack(Stack):
         
         See assets/artifact-size-limit-issue/README.md
         """
+
+        # Lab 6: Observability
+        # See assets/observability/README.md
+        CloudwatchDashboardConstruct(self, 'CloudwatchDashboardConstruct')
